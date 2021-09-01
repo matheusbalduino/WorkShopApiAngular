@@ -9,6 +9,8 @@ import { UsuariosComponent } from './Usuarios/Usuarios.component';
 import { NavComponent } from './nav/nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DemoCarouseBasicComponent } from './carousel/carousel.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 @NgModule({
@@ -16,14 +18,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
       ProdutosComponent,
       UsuariosComponent,
-      NavComponent
+      NavComponent,
+      DemoCarouseBasicComponent
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

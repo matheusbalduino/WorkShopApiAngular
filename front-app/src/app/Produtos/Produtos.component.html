@@ -1,77 +1,73 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-<body>
 
-<h1 class="text text-center mt-5">Produtos</h1>
-<table class="table table-hover mt-5 ">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Descricao</th>
-      <th scope="col">Imagem</th>
-      <th scope="col">Opções</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="table-active" *ngFor="let produto of produtos">
-      <th scope="row">{{produto.produtoId}}</th>
-      <td>{{produto.nome}}</td>
-      <td>{{produto.descricao}}</td>
-      <td>{{produto.imagemUrl}}</td>
-      <td> <a class="bi bi-pencil-square" style="font-size: 20px;" (click)="openEdit(content1)"> </a>
-           <a class="bi bi-trash ml-2" style="font-size: 20px; color: red;" (click)="openEdit(content2)"></a> </td>
-           
-      <!-- modal para editar -->
-      <ng-template #content1 let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-             <label for="">Teste content 1</label>
+
+
+<body class="container mt-5" >
+
+<demo-carousel-basic></demo-carousel-basic>
+
+<div *ngFor="let item of produtos" >
+  <div class="card-deck mt-5">
+    <div class="card" style="width: 100px;">
+      <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a class="bi bi-pencil-square" style="font-size: 20px;" (click)="openEdit(content)"> </a>
+         <a class="bi bi-trash ml-2" style="font-size: 20px; color: red;"  (click)="openEdit(content2)"></a>
+      </div>
+  
+             <!-- modal para atualizar o produto   -->
+             <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="">Teste content 1</label>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+              </div>
+            </ng-template>
+        
+          <!-- modal para excluir -->
+          <ng-template #content2 let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">{{item.nome}}</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-        </div>
-      </ng-template>
-
-      <!-- modal para excluir -->
-      <ng-template #content2 let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">{{produto.nome}}</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div >
-          <table class="table table-hover mt-2 ">
-            <thead></thead>
-            <tbody>
-              <tr class="table">
-                <td>Produto:</td>
-                <td >{{produto.nome}}</td>
-              </tr>
-              <tr class="table">
-                <td>Preço:</td>
-                <td >{{produto.preco}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" (click)="modal.close('delete')" (click)="openEdit(content1)" >Excluir</button>
-        </div>
-      </ng-template>
-    </tr>
-  </tbody>
-</table>
-
+            <div >
+              <table class="table table-hover mt-2 ">
+                <thead></thead>
+                <tbody>
+                  <tr class="table">
+                    <td>Produto:</td>
+                    <td >{{item.nome}}</td>
+                  </tr>
+                  <tr class="table">
+                    <td>Preço:</td>
+                    <td >{{item.preco}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-danger" (click)="modal.close('delete')" >Excluir</button>
+            </div>
+          </ng-template>
+  
+    </div>
+  
+  </div>
+</div>
 </body>
 
 

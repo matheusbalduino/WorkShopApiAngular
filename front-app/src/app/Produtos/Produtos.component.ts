@@ -12,7 +12,7 @@ export class ProdutosComponent implements OnInit {
 
   /** Variáveis globais da classe */
   produtos: Produto[] = [];
-  
+ 
 
   /**---------------------------- */
   constructor(private produto: ProdutoService,
