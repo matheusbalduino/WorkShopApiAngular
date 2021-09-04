@@ -13,14 +13,12 @@ export class ProdutosComponent implements OnInit {
   /** Variáveis globais da classe */
   produtos: Produto[] = [];
  
-
   /**---------------------------- */
   constructor(private produto: ProdutoService,
     private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getEventos();
-
   }
 
   getEventos(){
@@ -32,8 +30,12 @@ export class ProdutosComponent implements OnInit {
     );
   }
 
-  openEdit(content: any) {
+  openModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then();
+  }
+  
+  saveProdutos(){
+    
   }
 
 }
