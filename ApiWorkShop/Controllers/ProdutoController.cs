@@ -50,9 +50,13 @@ namespace ApiWorkShop.Controllers
             // Upload de imagem para o servidor
             try
             {
-                var file = Request.Form.Files[0];
-                var folderName = "Images";
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (!Directory.Exists("Images"))
+                {
+                    Directory.CreateDirectory("Images");
+                }
+
+                var file =  Request.Form.Files[0];
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), "Images");
 
                 if(file.Length > 0)
                 {
@@ -62,7 +66,7 @@ namespace ApiWorkShop.Controllers
                     {
                         file.CopyTo(stream);
                     }
-                    return Ok();
+                    return Ok("Imagem salva com sucesso");
                 }
             }
             catch (Exception ex)
@@ -70,6 +74,7 @@ namespace ApiWorkShop.Controllers
                 throw ex;
             }
             return BadRequest("Erro ao fazer upload da imagem");
+        
         }
 
         [HttpPut("update")]
