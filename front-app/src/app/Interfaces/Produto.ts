@@ -7,3 +7,4 @@ export interface Produto {
     imagemUrl: string;
     usuarioId: number;
 }
+

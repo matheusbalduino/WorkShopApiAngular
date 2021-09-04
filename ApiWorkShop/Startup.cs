@@ -50,8 +50,15 @@ namespace ApiWorkShop
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+ 
             app.UseAuthorization();
+
+            app.UseCors(x =>
+            {
+                x.AllowAnyMethod();
+                x.AllowAnyHeader();
+                x.AllowAnyOrigin();
+            });
 
             app.UseEndpoints(endpoints =>
             {
