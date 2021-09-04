@@ -51,14 +51,17 @@
 
 <!-- fim modal -->
 
-<div *ngFor="let item of produtos" >
-  <div class="card-deck mt-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{item.nome}}</h5>
-        <p class="card-text">{{item.descricao}}</p>
+<div id="card">
+
+<div *ngFor="let item of produtos" id="oncard">
+ 
+    <div id="cardInside" >
+      <div id="insideCard">
+        <img src="https://localhost:44339/Images/cerveja.jpg" alt="cerveja">
+        <h5 >{{item.nome}}</h5>
+        <p >{{item.descricao}}</p>
         <a class="bi bi-pencil-square" href="#" style="font-size: 20px;" (click)="openModal(content)"> </a>
-         <a class="bi bi-trash ml-2" href="#" style="font-size: 20px; color: red;"  (click)="openModal(content2)"></a>
+        <a class="bi bi-trash ml-2" href="#" style="font-size: 20px; color: red;"  (click)="openModal(content2)"></a>
       </div>
   
              <!-- modal para atualizar o produto   -->
@@ -140,8 +143,19 @@
     </div>
   
   </div>
+
 </div>
 
+
 </body>
+
+<footer>
+  <div id="barra"></div>
+  <div>
+    <div>
+      Desenvolvido Por Matheus Balduino
+    </div>
+  </div>
+</footer>
 
 
