@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DemoCarouseBasicComponent } from './carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 
 @NgModule({
@@ -26,8 +28,11 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
-    CarouselModule.forRoot()
+    CarouselModule.forRoot(),
+    AlertModule.forRoot()    
   ],
   providers: [],
   bootstrap: [AppComponent]
