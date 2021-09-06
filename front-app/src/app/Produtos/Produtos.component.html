@@ -4,6 +4,10 @@
 
 <demo-carousel-basic></demo-carousel-basic>
 
+<div class="mt-3"> 
+  <alert *ngIf="showAlert" [type]='Alerts.type' [dismissible]="dismissible" (onClosed)="onClosed()">{{Alerts.msg}} </alert>
+</div>
+
   <button (click)="openModal(content3)" href="#" class="btn btn-success mt-5" style="display: flex; color: seagreen; text-decoration: none; list-style: none;">
     <i style="color:white" class="bi bi-plus-circle-fill"> Produto</i>
   </button>
@@ -51,7 +55,8 @@
         <div class="form-row">
          <div class="form-group col-md-12">
            <label class="form-label" >Imagem</label>
-           <input [ngClass]="{'is-invalid': registerForm.get('imagemUrl')?.errors && registerForm.get('imagemUrl')?.touched}" formControlName="imagemUrl" type="text" class="form-control">
+           <input [ngClass]="{'is-invalid': registerForm.get('imagemUrl')?.errors && registerForm.get('imagemUrl')?.touched}" 
+                     formControlName="imagemUrl" type="file" (change)="onFileChange($event)" class="form-control">
            <div *ngIf="registerForm.get('imagemUrl')?.hasError('required')
            && registerForm.get('imagemUrl')?.touched" class="invalid-feedback">
                Imagem é obrigatório.
@@ -61,12 +66,11 @@
        </form>
     </div>
     <div class="modal-footer">
-      <button type="button" [disabled]="!registerForm.valid" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      <button type="button" [disabled]="!registerForm.valid" class="btn btn-outline-dark" (click)="saveProdutos()" (click)="modal.close('Save click')">Save</button>
     </div>
   </ng-template>
 
 <!-- fim modal -->
-<alert *ngIf="showAlert" [type]='Alerts.type' [dismissible]="dismissible" (onClosed)="onClosed()">{{Alerts.msg}} </alert>
 
 <div id="card">
 
@@ -74,7 +78,7 @@
  
     <div id="cardInside" >
       <div id="insideCard">
-        <img src="https://localhost:44339/Images/cerveja.jpg" alt="cerveja">
+        <img src="https://localhost:44339/Images/{{item.imagemUrl}}" width="200px" alt="{{item.imagemUrl}}">
         <h5 >{{item.nome}}</h5>
         <p >{{item.descricao}}</p>
         <p >{{item.preco}}</p>
@@ -125,7 +129,8 @@
                   <div class="form-row">
                    <div class="form-group col-md-12">
                      <label class="form-label" >Imagem</label>
-                     <input [ngClass]="{'is-invalid': registerForm.get('imagemUrl')?.errors && registerForm.get('imagemUrl')?.touched}" formControlName="imagemUrl" type="text" class="form-control">
+                     <input [ngClass]="{'is-invalid': registerForm.get('imagemUrl')?.errors && registerForm.get('imagemUrl')?.touched}" 
+                     formControlName="imagemUrl" type="file" (change)="onFileChange($event)" class="form-control">
                      <div *ngIf="registerForm.get('imagemUrl')?.hasError('required')
                      && registerForm.get('imagemUrl')?.touched" class="invalid-feedback">
                          Imagem é obrigatório.
@@ -170,7 +175,7 @@
               </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-danger" (click)="modal.close('delete')" >Excluir</button>
+              <button type="button" class="btn btn-outline-danger" (click)="deleteProduto(item.produtoId)" (click)="modal.close('delete')" >Excluir</button>
             </div>
           </ng-template>
   

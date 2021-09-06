@@ -15,7 +15,8 @@ export class ProdutosComponent implements OnInit {
   produtos: Produto[] = [];
   registerForm: FormGroup;
   _Produto: Produto;
- 
+  
+  file: File;
   /**---------------------------- */
   constructor(private produto: ProdutoService,
     private modalService: NgbModal,
@@ -39,16 +40,42 @@ export class ProdutosComponent implements OnInit {
   openModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then();
   }
+
+  onFileChange(event: any) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
+    }
+  }
+
+  uploadImage(){
+    const nomeArquivo = this._Produto.imagemUrl.split('\\', 3);
+    this._Produto.imagemUrl = nomeArquivo[2];
+
+    this.produto.postUpload(this.file, nomeArquivo[2])
+      .subscribe(
+        (resp) => {
+          console.log(resp);
+        },
+        error => console.log(error)
+      );
+  }
   
   saveProdutos(){
     
-    console.log(this.registerForm);
-    this._Produto = this.registerForm.value;
+    this.registerForm.value.preco = parseFloat(this.registerForm.value.preco.replace(",","."));
+
+    this._Produto = Object.assign({},this.registerForm.value);
+
+    this.uploadImage();
 
     this.produto.postNewProduto(this._Produto).subscribe(
       (resp) => {
-        console.log("enviou");
+        this.Alerts.msg = 'Produto Adicionado com Sucesso!'
+        this.Alerts.type = 'success';
        this.showAlert = true;
+       this.validation();
+       this.getEventos();
       }
     );
 
@@ -56,22 +83,36 @@ export class ProdutosComponent implements OnInit {
 
   validation() {
     this.registerForm = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      descricao: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      imagemUrl: ['', Validators.required],
-      preco: ['', [Validators.required, Validators.max(120000)]],
+      nome:       ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      descricao:  ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      imagemUrl:  ['', Validators.required],
+      preco:      ['' , [Validators.required, Validators.max(120000)]],
     });
   }
   
-  Alerts: any= 
-    {
-      type: 'success',
-      msg: `Produto Adicionado com Sucesso!`
-    }
+  Alerts: any = {
+    type: '',
+    msg: ''
+  }
   showAlert = false;
   dismissible: boolean = true;
+
   onClosed(): void {
     this.dismissible = !this.dismissible;
+  }
+
+  deleteProduto(id: number){
+    this.produto.delete(id).subscribe(
+      (resp) => {
+        
+      },
+      erro => {
+        this.Alerts.msg = erro.error.text;
+        this.Alerts.type = 'danger';
+        this.showAlert = true;
+        this.getEventos();
+      }
+    )
   }
 
 }

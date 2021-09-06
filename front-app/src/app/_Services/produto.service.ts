@@ -25,8 +25,17 @@ export class ProdutoService {
   public postNewProduto(modal: Produto):Observable<Produto>{
     return this.http.post<Produto>(`${this.baseUrl}`, modal);
   }
-  public delete(id: number): Observable<Produto>{
-    return this.http.delete<Produto>(`${this.baseUrl}/${id}`)
+
+  public delete(id: number): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/Delete/${id}`)
+  }
+
+  public postUpload(file: any, name: string) {
+    const fileToUpload = file[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, name);
+
+    return this.http.post(`${this.baseUrl}/upload`, formData);
   }
 
 }
