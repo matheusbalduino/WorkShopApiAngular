@@ -3,6 +3,8 @@ import { Produto } from '../_Interfaces/Produto';
 import { ProdutoService } from '../_Services/produto.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-Produtos',
@@ -17,12 +19,20 @@ export class ProdutosComponent implements OnInit {
   _Produto: Produto;
   
   file: File;
+  login = sessionStorage.getItem('login');
+  userId = sessionStorage.getItem('id') || '0';
   /**---------------------------- */
   constructor(private produto: ProdutoService,
     private modalService: NgbModal,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private router: Router) { 
+     
+    }
 
   ngOnInit() {
+    if(this.login != 'true'){
+      this.router.navigate(['/login']);
+    }
     this.validation();
     this.getEventos();
 
@@ -64,9 +74,9 @@ export class ProdutosComponent implements OnInit {
   saveProdutos(){
     
     this.registerForm.value.preco = parseFloat(this.registerForm.value.preco.replace(",","."));
-
+    
     this._Produto = Object.assign({},this.registerForm.value);
-
+    this._Produto.usuarioId = parseInt(this.userId);
     this.uploadImage();
 
     this.produto.postNewProduto(this._Produto).subscribe(
@@ -86,7 +96,7 @@ export class ProdutosComponent implements OnInit {
       nome:       ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       descricao:  ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       imagemUrl:  ['', Validators.required],
-      preco:      ['' , [Validators.required, Validators.max(120000)]],
+      preco:      ['' , Validators.required]
     });
   }
   
@@ -114,5 +124,6 @@ export class ProdutosComponent implements OnInit {
       }
     )
   }
+
 
 }

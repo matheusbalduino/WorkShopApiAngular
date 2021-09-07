@@ -38,4 +38,8 @@ export class ProdutoService {
     return this.http.post(`${this.baseUrl}/upload`, formData);
   }
 
+  public updateProduto(produto: Produto): Observable<Produto>{
+    return this.http.put<Produto>(this.baseUrl + '/update', produto);
+  }
+
 }

@@ -5,5 +5,6 @@ export interface Usuario {
     nome : string;
     sobrenome : string;
     senha : string;
+    email: string;
     produtos : Produto[];
 }

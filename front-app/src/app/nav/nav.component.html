@@ -1,19 +1,18 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="#">Loja</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/">Loja</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" 
+    aria-controls="navbarColor02" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor02">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" [routerLink]="['/']">Home
-          </a>
-        </li>      
-      </ul>
-      
+    <div class="collapse navbar-collapse" #collapse="ngbCollapse" [(ngbCollapse)]="!isCollapsed">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"><a href="#" class="nav-link" (click)="logout()"> Logout </a></li>
+      </ul> 
     </div>
+    
   </div>
+  
 </nav>

@@ -13,15 +13,17 @@ import { DemoCarouseBasicComponent } from './carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
-  declarations: [			
+  declarations: [				
     AppComponent,
       ProdutosComponent,
       UsuariosComponent,
       NavComponent,
-      DemoCarouseBasicComponent
+      DemoCarouseBasicComponent,
+      LoginComponent
    ],
   imports: [
     BrowserModule,
