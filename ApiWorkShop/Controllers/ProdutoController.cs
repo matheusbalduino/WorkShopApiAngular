@@ -103,25 +103,26 @@ namespace ApiWorkShop.Controllers
             }
         }
 
-        [HttpDelete("Delete")]
-        public async Task<IActionResult> RemoverProduto(Produto model)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> RemoverProduto(int id)
         {
             try
             {
-                var produto = await _produtoService.GetById(model.ProdutoId);
+                var produto = await _produtoService.GetById(id);
 
                 if (produto == null) return BadRequest();
 
-                model.ProdutoId = produto.ProdutoId;
-
-                _mainService.Delete<Produto>(model);
+                _mainService.Delete<Produto>(produto);
 
                 if (await _mainService.saveChangesAsync())
                 {
                     return Ok($"Produto {produto.Nome} Removido");
                 }
+                else
+                {
+                    return BadRequest();
+                }
 
-                return BadRequest();
             }
             catch (Exception ex)
             {

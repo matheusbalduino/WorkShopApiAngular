@@ -31,13 +31,16 @@ namespace ApiWorkShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<MyDbContext>(
                 context => context.UseSqlServer(Configuration.GetConnectionString("default"))
                 );
 
             services.AddScoped<IMainService, MainService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IProdutoService, ProdutoService>();
 
         }

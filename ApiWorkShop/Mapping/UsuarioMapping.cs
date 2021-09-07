@@ -24,6 +24,9 @@ namespace ApiWorkShop.Mapping
             builder.Property(u => u.Senha)
                 .HasColumnType("varchar(20)");
 
+            builder.Property(u => u.Email)
+               .HasColumnType("varchar(200)");
+
             //Relacionamento 1:N
             builder.HasMany(u => u.Produtos)
                 .WithOne(p => p.Usuario)

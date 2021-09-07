@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ApiWorkShop.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
@@ -131,5 +131,29 @@ namespace ApiWorkShop.Controllers
                 throw ex;
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(Usuario user)
+        {
+            try
+            {
+                var usuario = await _usuarioService.GetLoginUser(user);
+                if (usuario == null) return BadRequest();
+                if (BCrypt.Net.BCrypt.Verify(user.Senha,usuario.Senha))
+                {
+                    return Ok(usuario);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
