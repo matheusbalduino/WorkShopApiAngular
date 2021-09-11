@@ -4,7 +4,6 @@ import { ProdutoService } from '../_Services/produto.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-Produtos',
@@ -16,6 +15,7 @@ export class ProdutosComponent implements OnInit {
   /** Variáveis globais da classe */
   produtos: Produto[] = [];
   registerForm: FormGroup;
+  registerFormUp: FormGroup;
   _Produto: Produto;
   
   file: File;
@@ -59,16 +59,21 @@ export class ProdutosComponent implements OnInit {
   }
 
   uploadImage(){
-    const nomeArquivo = this._Produto.imagemUrl.split('\\', 3);
-    this._Produto.imagemUrl = nomeArquivo[2];
 
-    this.produto.postUpload(this.file, nomeArquivo[2])
+    const nomeArquivo = this._Produto.imagemUrl.split('\\', 3);
+    console.log("nome", nomeArquivo[2], nomeArquivo)
+    //condicional para ver se é update ou novo produto
+    if(nomeArquivo[2] != null){
+      this._Produto.imagemUrl = nomeArquivo[2];
+      this.produto.postUpload(this.file, nomeArquivo[2])
       .subscribe(
         (resp) => {
           console.log(resp);
         },
         error => console.log(error)
       );
+    }
+      
   }
   
   saveProdutos(){
@@ -91,6 +96,33 @@ export class ProdutosComponent implements OnInit {
 
   }
 
+  updateProdutos(prod: Produto){
+    console.log(this.registerFormUp.value.preco)
+
+    if( typeof(this.registerFormUp.value.preco) === 'string')
+      this.registerFormUp.value.preco = parseFloat(this.registerFormUp.value.preco.replace(",","."));
+    
+    this._Produto = Object.assign({},this.registerFormUp.value);
+    this._Produto.usuarioId = parseInt(this.userId);
+    this._Produto.produtoId = prod.produtoId;
+    this.uploadImage();
+
+    this.produto.updateProduto(this._Produto).subscribe(
+      (resp) => {
+        this.Alerts.msg = 'Produto Atualizado com Sucesso!'
+        this.Alerts.type = 'success';
+       this.showAlert = true;
+       this.validation();
+       this.getEventos();
+      }
+    );
+
+  }
+
+  // Validation para salvar o Produto
+  // Cria a regra para criação do produto
+  // é abastecido pela Tag Form que contem o registerForm
+  // Esta função deve ser iniciada no OnInit para criar a instacia do FormGroup
   validation() {
     this.registerForm = this.fb.group({
       nome:       ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
@@ -99,7 +131,19 @@ export class ProdutosComponent implements OnInit {
       preco:      ['' , Validators.required]
     });
   }
+
+  // Validation para atualizar Produto
+  validationUp(item: Produto) {
+    this.registerFormUp = this.fb.group({
+      nome:       [item.nome, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      descricao:  [item.descricao, [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      imagemUrl:  [''],
+      preco:      [item.preco , Validators.required]
+    });
+  }
   
+
+
   Alerts: any = {
     type: '',
     msg: ''

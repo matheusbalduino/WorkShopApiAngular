@@ -30,9 +30,13 @@ p{
     font-size: 13px;
 }
 
-#insideCard > img{
+#insideCard > div{
+    height: 350px;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-size: 100%;
     width: 100%;
-    border-radius: 5px;
 }
 
 footer{
@@ -63,8 +67,16 @@ footer > div > div{
                 width: 100%;
                 margin-top: 1.5rem;
             }
-
-                
+            
+            #insideCard > div{
+                height: 200px;
+                background-repeat: no-repeat;
+                background-position-x: center;
+                background-position-y: center;
+                background-size: 100%;
+                width: 100%;
+            }
+                            
             h5{
                 margin-top:1rem;
                 font-weight: 600;

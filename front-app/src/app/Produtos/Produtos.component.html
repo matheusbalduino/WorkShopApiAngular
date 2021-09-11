@@ -78,14 +78,15 @@
  
     <div id="cardInside" >
       <div id="insideCard">
-        <img src="https://localhost:44339/Images/{{item.imagemUrl}}" width="200px" alt="{{item.imagemUrl}}">
+        <div style="background-image: url('https://localhost:44339/Images/{{item.imagemUrl}}');" ></div>
+      </div>
+      <div>
         <h5 >{{item.nome}}</h5>
         <p >{{item.descricao}}</p>
         <p >{{item.preco}}</p>
-        <a class="bi bi-pencil-square" href="#" style="font-size: 20px;" (click)="openModal(content)"> </a>
+        <a class="bi bi-pencil-square" href="#" style="font-size: 20px;" (click)="validationUp(item)" (click)="openModal(content)"> </a>
         <a class="bi bi-trash ml-2" href="#" style="font-size: 20px; color: red;"  (click)="openModal(content2)"></a>
-      </div>
-  
+       </div>
              <!-- modal para atualizar o produto   -->
              <ng-template #content let-modal>
               <div class="modal-header">
@@ -95,13 +96,13 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form [formGroup]="registerForm">
+                <form [formGroup]="registerFormUp">
                   <div class="form-row">
                     <div class="form-group col-md-12">
                       <label class="form-label" >Nome</label>
-                      <input  [ngClass]="{'is-invalid': registerForm.get('nome')?.errors && registerForm.get('nome')?.touched}" formControlName="nome" type="text" class="form-control">
-                      <div *ngIf="registerForm.get('nome')?.hasError('required')
-                      && registerForm.get('nome')?.touched" class="invalid-feedback">
+                      <input  [ngClass]="{'is-invalid': registerFormUp.get('nome')?.errors && registerFormUp.get('nome')?.touched}" formControlName="nome" type="text" class="form-control">
+                      <div *ngIf="registerFormUp.get('nome')?.hasError('required')
+                      && registerFormUp.get('nome')?.touched" class="invalid-feedback">
                           Nome é obrigatório.
                         </div>
                     </div>
@@ -109,9 +110,9 @@
                   <div class="form-row">
                     <div class="form-group col-md-12">
                      <label class="form-label" >Descrição</label>
-                     <input [ngClass]="{'is-invalid': registerForm.get('descricao')?.errors && registerForm.get('descricao')?.touched}" formControlName="descricao" type="text" class="form-control">
-                     <div *ngIf="registerForm.get('descricao')?.hasError('required')
-                     && registerForm.get('descricao')?.touched" class="invalid-feedback">
+                     <input [ngClass]="{'is-invalid': registerFormUp.get('descricao')?.errors && registerFormUp.get('descricao')?.touched}" formControlName="descricao" type="text" class="form-control">
+                     <div *ngIf="registerFormUp.get('descricao')?.hasError('required')
+                     && registerFormUp.get('descricao')?.touched" class="invalid-feedback">
                          Descrição é obrigatório.
                        </div>
                     </div>
@@ -119,9 +120,9 @@
                    <div class="form-row">
                      <div class="form-group col-md-12">
                      <label class="form-label" >Preço</label>
-                     <input [ngClass]="{'is-invalid': registerForm.get('preco')?.errors && registerForm.get('preco')?.touched}" formControlName="preco" type="text" class="form-control">
-                     <div *ngIf="registerForm.get('preco')?.hasError('required')
-                     && registerForm.get('preco')?.touched" class="invalid-feedback">
+                     <input [ngClass]="{'is-invalid': registerFormUp.get('preco')?.errors && registerFormUp.get('preco')?.touched}" formControlName="preco" type="text" class="form-control">
+                     <div *ngIf="registerFormUp.get('preco')?.hasError('required')
+                     && registerFormUp.get('preco')?.touched" class="invalid-feedback">
                          Preço é obrigatório.
                        </div>
                     </div>
@@ -129,18 +130,13 @@
                   <div class="form-row">
                    <div class="form-group col-md-12">
                      <label class="form-label" >Imagem</label>
-                     <input [ngClass]="{'is-invalid': registerForm.get('imagemUrl')?.errors && registerForm.get('imagemUrl')?.touched}" 
-                     formControlName="imagemUrl" type="file" (change)="onFileChange($event)" class="form-control">
-                     <div *ngIf="registerForm.get('imagemUrl')?.hasError('required')
-                     && registerForm.get('imagemUrl')?.touched" class="invalid-feedback">
-                         Imagem é obrigatório.
-                       </div>
+                     <input formControlName="imagemUrl" type="file" (change)="onFileChange($event)" class="form-control">
                     </div>
                   </div>
                  </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark"  [disabled]="!registerForm.valid" (click)="saveProdutos()" (click)="modal.close('Save click')" >Save</button>
+                <button type="button" class="btn btn-outline-dark"  [disabled]="!registerFormUp.valid" (click)="updateProdutos(item)" (click)="modal.close('Save click')" >Save</button>
               </div>
             </ng-template>
         
@@ -152,13 +148,13 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
+            <div class=" text-center mt-2">
+              <img src="https://localhost:44339/Images/{{item.imagemUrl}}" width="200px" alt="{{item.imagemUrl}}">
+            </div>
             <div >
               <table class="table table-hover mt-2 ">
                 <thead></thead>
                 <tbody>
-                  <tr class="table">
-                    {{item.imagemUrl}}
-                  </tr>
                   <tr class="table">
                     <td>Produto:</td>
                     <td >{{item.nome}}</td>
