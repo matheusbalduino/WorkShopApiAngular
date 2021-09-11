@@ -14,7 +14,8 @@ namespace ApiWorkShop.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "varchar(80)", nullable: true),
                     Sobrenome = table.Column<string>(type: "varchar(80)", nullable: true),
-                    Senha = table.Column<string>(type: "varchar(20)", nullable: true)
+                    Email = table.Column<string>(type: "varchar(200)", nullable: true),
+                    Senha = table.Column<string>(type: "varchar(255)", nullable: true)
                 },
                 constraints: table =>
                 {

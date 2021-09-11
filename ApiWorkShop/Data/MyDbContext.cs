@@ -24,5 +24,6 @@ namespace ApiWorkShop.Data
 
         // Add-Migration Initial -Verbose -Context MyDbContext
         // Update-Database -Context MyDbContext
+        // 
     }
 }

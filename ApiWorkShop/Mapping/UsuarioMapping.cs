@@ -22,7 +22,7 @@ namespace ApiWorkShop.Mapping
                 .HasColumnType("varchar(80)");
 
             builder.Property(u => u.Senha)
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(255)");
 
             builder.Property(u => u.Email)
                .HasColumnType("varchar(200)");
@@ -31,7 +31,7 @@ namespace ApiWorkShop.Mapping
             builder.HasMany(u => u.Produtos)
                 .WithOne(p => p.Usuario)
                 .HasForeignKey(p => p.UsuarioId);
-            
+
             builder.ToTable("Usuarios");
         }
     }

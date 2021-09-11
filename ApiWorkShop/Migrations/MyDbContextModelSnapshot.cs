@@ -55,11 +55,14 @@ namespace ApiWorkShop.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("varchar(200)");
+
                     b.Property<string>("Nome")
                         .HasColumnType("varchar(80)");
 
                     b.Property<string>("Senha")
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Sobrenome")
                         .HasColumnType("varchar(80)");

@@ -86,6 +86,9 @@ namespace ApiWorkShop.Controllers
 
                 if (produto == null) return BadRequest();
 
+                if (String.IsNullOrEmpty(model.ImagemUrl))
+                    model.ImagemUrl = produto.ImagemUrl;
+
                 model.ProdutoId = produto.ProdutoId;
 
                 _mainService.Update<Produto>(model);

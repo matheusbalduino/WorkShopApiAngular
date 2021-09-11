@@ -30,6 +30,8 @@ namespace ApiWorkShop.Service
         {
             return await _context.Produtos
                                  .Where(p => p.ProdutoId == id)
+                                 .Include(u=>u.Usuario)
+                                 .AsNoTracking()
                                  .FirstOrDefaultAsync();
         }
     }
