@@ -25,20 +25,23 @@ namespace ApiWorkShop
         {
             Configuration = configuration;
         }
-
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Comando para impedir um looping de relacionamento
             services.AddControllers()
                 .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            // Declaração do DbContext e configuração da string de conexão.
             services.AddDbContext<MyDbContext>(
                 context => context.UseSqlServer(Configuration.GetConnectionString("default"))
                 );
 
+            // Declaração dos services criados no projeto para leitura nos controllers
             services.AddScoped<IMainService, MainService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IProdutoService, ProdutoService>();
@@ -59,6 +62,7 @@ namespace ApiWorkShop
  
             app.UseAuthorization();
 
+            // Liberação da Política de Cors
             app.UseCors(x =>
             {
                 x.AllowAnyMethod();
@@ -66,12 +70,14 @@ namespace ApiWorkShop
                 x.AllowAnyOrigin();
             });
 
+            // Declaração de rota para exibição de imagens.
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Images")),
                 RequestPath = new PathString("/Images")
             });
+
 
             app.UseEndpoints(endpoints =>
             {

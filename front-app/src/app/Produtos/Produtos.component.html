@@ -83,7 +83,7 @@
       <div>
         <h5 >{{item.nome}}</h5>
         <p >{{item.descricao}}</p>
-        <p >{{item.preco}}</p>
+        <p >{{item.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}}</p>
         <a class="bi bi-pencil-square" href="#" style="font-size: 20px;" (click)="validationUp(item)" (click)="openModal(content)"> </a>
         <a class="bi bi-trash ml-2" href="#" style="font-size: 20px; color: red;"  (click)="openModal(content2)"></a>
        </div>
