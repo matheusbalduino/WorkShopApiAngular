@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
 
   }
-  
+  // função para limpar a session e fazer logout.
   logout(){
     sessionStorage.clear();
     this.route.navigate(['/login'])

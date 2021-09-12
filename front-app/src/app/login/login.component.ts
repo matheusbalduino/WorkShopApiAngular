@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
    
   }
 
+  //função de login, verifica se o usuário é valido.
+  //Constroi a session
   login(){
    
     this.usuario.getLogin(this.user).subscribe(
