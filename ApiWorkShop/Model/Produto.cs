@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace ApiWorkShop.Model
 {
+    // Model do Produtos, classe criada para abastecimento dos atributos recuperados do banco
+    // Usada para atribuir memória do sistema, armazenando os dados temporariamente para exibição
     public class Produto
     {
         public int ProdutoId { get; set; }

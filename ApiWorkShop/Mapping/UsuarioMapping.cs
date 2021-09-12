@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace ApiWorkShop.Mapping
 {
+    // Mapping: Classe usada para declarar os detalhes da nossa tabela no banco de dados
+    // Dessa forma o entityFramework consegue criar a tabela, baseada em cada atributo detalhado abaixo
     public class UsuarioMapping : IEntityTypeConfiguration<Usuario>
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)

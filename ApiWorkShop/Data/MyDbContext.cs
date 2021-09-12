@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApiWorkShop.Data
 {
+    // Classe para declarar Para o EntityFramework nossas tabelas 
+
     public class MyDbContext: DbContext
     {
         
@@ -14,6 +16,7 @@ namespace ApiWorkShop.Data
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
+        //Função para dizer que deve ser construida as tabelas baseado no Mapping
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

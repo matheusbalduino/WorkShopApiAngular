@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace ApiWorkShop.Model
 {
+    // Model do usuário, classe criada para abastecimento dos atributos recuperados do banco
+    // Usada para atribuir memória do sistema, armazenando os dados temporariamente para exibição
     public class Usuario
     {
         public int UsuarioId { get; set; }
@@ -14,6 +16,6 @@ namespace ApiWorkShop.Model
         public string Senha { get; set; }
 
         //Relacionamento 1:N
-        public List<Produto> Produtos { get; set; }
+        public List<Produto> Produtos { get; set; } // Cria uma lista do tipo Produtos para exibição dos produtos do Usuário.
     }
 }
