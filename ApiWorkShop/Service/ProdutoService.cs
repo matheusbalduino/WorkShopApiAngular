@@ -32,7 +32,9 @@ namespace ApiWorkShop.Service
         // Função Para recuperar todos os Produtos da tabela Produtos
         public async Task<List<Produto>> GetAllProducts()
         {
-            return await _context.Produtos.ToListAsync();
+            return await _context.Produtos
+                                 //.Include(u => u.Usuario)
+                                 .ToListAsync();
         }
 
         //Função para recuperar um produto específico pelo seu id
